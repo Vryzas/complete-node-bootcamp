@@ -2,6 +2,7 @@
 // require 'file system'
 const fs = require("fs");
 const http = require(`http`);
+const url = require(`url`);
 
 //////////////////////////////////////////////////////////////////////////////////////
 // // file reading (syncronous or blocking way)
@@ -34,8 +35,19 @@ const http = require(`http`);
 // SERVER
 // server creation
 const server = http.createServer((req, res) => {
-  //   console.log(req);
-  res.end(`Hello from the server!`);
+  const pathName = req.url;
+
+  if (pathName === `/` || pathName === `/overview`) {
+    res.end(`This is the OVERVIEW`);
+  } else if (pathName === `/product`) {
+    res.end(`This is the PRODUCT`);
+  } else {
+    res.writeHead(404, {
+      "Content-type": `text/html`,
+      "my-own-header": `hello-world`,
+    });
+    res.end(`<h1>Page not Found!</h1>`);
+  }
 });
 // server listening to requests
 server.listen(8000, `127.0.0.1`, () => {
