@@ -1,10 +1,13 @@
-// run "node index.js" in the terminal
-// require 'file system'
+// run "node index.js" in the terminal (unless u instal nodemon pkg)
+// requires node modules
 const fs = require("fs");
 const http = require(`http`);
 const url = require(`url`);
-
+// require 3rd party modules
+const slug = require("slugify");
+// require my modules
 const replaceTemplate = require("./modules/replaceTemplate"); // imports the replaceTemplate fn
+const { default: slugify } = require("slugify");
 //////////////////////////////////////////////////////////////////////////////////////
 // // file reading (syncronous or blocking way)
 // const textIn = fs.readFileSync("./txt/input.txt", `utf-8`);
@@ -51,6 +54,9 @@ const tempProduct = fs.readFileSync(
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, `utf-8`);
 const dataObj = JSON.parse(data); // the data become an array of obj
+
+const slugs = dataObj.map((el) => slugify(el.productName, { lower: true }));
+console.log(slugs); // could store these in the objects and use them as url query for routing
 
 // server creation
 const server = http.createServer((req, res) => {
