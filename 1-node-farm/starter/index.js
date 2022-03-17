@@ -67,11 +67,11 @@ const dataObj = JSON.parse(data); // the data become an array of obj
 
 // server creation
 const server = http.createServer((req, res) => {
-  const pathName = req.url;
+  const { query, pathname } = url.parse(req.url, true); // routing args (path & params (if any))
 
   // routing in the server
   // Overview page
-  if (pathName === `/` || pathName === `/overview`) {
+  if (pathname === `/` || pathname === `/overview`) {
     res.writeHead(200, { "Content-type": `text/html` });
     const cardsHtml = dataObj
       .map((el) => replaceTemplate(tempCard, el))
@@ -81,11 +81,13 @@ const server = http.createServer((req, res) => {
     res.end(output);
 
     // Product page
-  } else if (pathName === `/product`) {
-    res.end(`This is the PRODUCT`);
+  } else if (pathname === `/product`) {
+    const product = dataObj[query.id]; // query.id = product id
+    const output = replaceTemplate(tempProduct, product);
+    res.end(output);
 
     // API
-  } else if (pathName === `/api`) {
+  } else if (pathname === `/api`) {
     res.writeHead(200, { "Content-type": `application/json` });
     res.end(data);
 
