@@ -6,7 +6,7 @@ console.log(calc.multiply(5, 2));
 console.log(calc.divide(10, 1));
 
 // exports
-const calc2 = require("./test-module-2");
-console.log(calc2.add(1, 1));
-console.log(calc2.multiply(1, 2));
-console.log(calc2.divide(10, 5));
+const { add, multiply, divide } = require("./test-module-2"); // can pick imports
+console.log(add(1, 1));
+console.log(multiply(1, 2));
+console.log(divide(10, 5));
