@@ -2,12 +2,21 @@ const fs = require("fs");
 const server = require("http").createServer(); // less code to create the server 👆🏻
 
 server.on("request", (req, res) => {
-  //solution1
-  fs.readFile("test-file.txt", (err, data) => {
-    if (err) {
-      console.log(err);
-    }
-    res.end(data);
+  //solution 2 : Streams
+  const readable = fs.createReadStream("test-file.txt");
+  // reads the file piece by piece
+  readable.on("data", (chunk) => {
+    res.write(chunk);
+  });
+  // very important to use!!!
+  readable.on("end", () => {
+    res.end();
+  });
+
+  readable.on("error", (err) => {
+    console.log(err);
+    res.statusCode = 500;
+    res.end("File not found");
   });
 });
 
