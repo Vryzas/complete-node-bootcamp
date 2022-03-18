@@ -2,22 +2,10 @@ const fs = require("fs");
 const server = require("http").createServer(); // less code to create the server 👆🏻
 
 server.on("request", (req, res) => {
-  //solution 2 : Streams
+  // solution 3 : Pipe Operator
   const readable = fs.createReadStream("test-file.txt");
-  // reads the file piece by piece
-  readable.on("data", (chunk) => {
-    res.write(chunk);
-  });
-  // very important to use!!!
-  readable.on("end", () => {
-    res.end();
-  });
-
-  readable.on("error", (err) => {
-    console.log(err);
-    res.statusCode = 500;
-    res.end("File not found");
-  });
+  readable.pipe(res);
+  // needs_a_readable_source.pipe(writable_destination)
 });
 
 server.listen(8000, "127.0.0.1", () => {
