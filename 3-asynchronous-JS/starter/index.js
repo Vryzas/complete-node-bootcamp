@@ -43,12 +43,13 @@ const getDogPic = async () => {
   return '2: ready!!!';
 };
 
-console.log(`1: Will get dog pics!`);
-getDogPic()
-  .then((x) => {
+(async () => {
+  try {
+    console.log(`1: Will get dog pics!`);
+    const x = await getDogPic();
     console.log(x);
     console.log(`3: Got the dog pics!`);
-  })
-  .catch((err) => {
+  } catch (err) {
     console.log(`ERROR!`);
-  });
+  }
+})();
