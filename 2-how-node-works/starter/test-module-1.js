@@ -11,5 +11,5 @@ class Calculator {
     return a / b;
   }
 }
-
-module.exports = Calculator; // use "exports" to define the values to export from the file
+// use "exports" to define the values to export from the file
+module.exports = Calculator;
