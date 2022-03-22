@@ -125,21 +125,19 @@ const deleteUser = (req, res) => {
 };
 
 const tourRouter = express.Router();
+const userRouter = express.Router();
 // setting tourRouter as middleware
 app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
 tourRouter.route('/').get(getAllTours).post(postTour);
 
 // accessing one particular tour with url params
 tourRouter.route('/:id').get(getTour).patch(patchTour).delete(deleteTour);
 
-app.route('/api/v1/users').get(getAllUsers).post(createUser);
+userRouter.route('/').get(getAllUsers).post(createUser);
 
-app
-  .route('/api/v1/users/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 const port = 3000;
 app.listen(port, () => {
