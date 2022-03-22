@@ -34,13 +34,7 @@ const getTour = (req, res) => {
   });
 };
 
-app.get('/api/v1/tours', getAllTours);
-
-// getting one particular tour with url params
-app.get('/api/v1/tours/:id', getTour);
-
-//can use the same URL to get or post
-app.post('/api/v1/tours', (req, res) => {
+const postTour = (req, res) => {
   // new id (sequencial)
   const newId = tours[tours.length - 1].id + 1;
   // new tour obj
@@ -61,7 +55,15 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
+
+app.get('/api/v1/tours', getAllTours);
+
+// getting one particular tour with url params
+app.get('/api/v1/tours/:id', getTour);
+
+//can use the same URL to get or post
+app.post('/api/v1/tours', postTour);
 
 // example of patch!!!
 app.patch('/api/v1/tours/:id', (req, res) => {
