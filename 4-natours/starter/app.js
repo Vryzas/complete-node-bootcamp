@@ -19,10 +19,7 @@ const getAllTours = (req, res) => {
   });
 };
 
-app.get('/api/v1/tours', getAllTours);
-
-// getting one particular tour with url params
-app.get('/api/v1/tours/:id', (req, res) => {
+const getTour = (req, res) => {
   const id = req.params.id * 1;
   if (id > tours.length) {
     return res.status(404).json({
@@ -35,7 +32,12 @@ app.get('/api/v1/tours/:id', (req, res) => {
     status: 'success',
     tour,
   });
-});
+};
+
+app.get('/api/v1/tours', getAllTours);
+
+// getting one particular tour with url params
+app.get('/api/v1/tours/:id', getTour);
 
 //can use the same URL to get or post
 app.post('/api/v1/tours', (req, res) => {
