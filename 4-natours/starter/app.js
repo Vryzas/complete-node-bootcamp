@@ -57,16 +57,7 @@ const postTour = (req, res) => {
   );
 };
 
-app.get('/api/v1/tours', getAllTours);
-
-// getting one particular tour with url params
-app.get('/api/v1/tours/:id', getTour);
-
-//can use the same URL to get or post
-app.post('/api/v1/tours', postTour);
-
-// example of patch!!!
-app.patch('/api/v1/tours/:id', (req, res) => {
+const patchTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'fail',
@@ -77,7 +68,18 @@ app.patch('/api/v1/tours/:id', (req, res) => {
     status: 'success',
     tour: '<Updated tour would go here...>',
   });
-});
+};
+
+app.get('/api/v1/tours', getAllTours);
+
+// getting one particular tour with url params
+app.get('/api/v1/tours/:id', getTour);
+
+//can use the same URL to get or post
+app.post('/api/v1/tours', postTour);
+
+// example of patch!!!
+app.patch('/api/v1/tours/:id', patchTour);
 
 // delete example
 app.delete('/api/v1/tours/:id', (req, res) => {
