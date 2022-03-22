@@ -98,6 +98,14 @@ app.route('/api/v1/tours').get(getAllTours).post(postTour);
 // accessing one particular tour with url params
 app.route('/api/v1/tours/:id').get(getTour).patch(patchTour).delete(deleteTour);
 
+app.route('/api/v1/users').get(getAllUsers).post(createUser);
+
+app
+  .route('/api/v1/users/:id')
+  .get(getUser)
+  .patch(updateUser)
+  .delete(deleteUser);
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`App listening on port ${port}...`);
