@@ -5,6 +5,13 @@ const app = express();
 // middleware for POST
 app.use(express.json());
 
+// simple example middleware
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  // !!!Always invoque next()!!!
+  next();
+});
+
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
@@ -12,6 +19,7 @@ const tours = JSON.parse(
 const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     results: tours.length,
     data: {
       tours,
