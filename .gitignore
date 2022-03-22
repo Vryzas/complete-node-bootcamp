@@ -131,5 +131,4 @@ dist
 
 
 **/node_modules
-**/2-how-node-works
 **/.DS_Store
