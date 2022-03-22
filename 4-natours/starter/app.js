@@ -124,10 +124,14 @@ const deleteUser = (req, res) => {
   });
 };
 
-app.route('/api/v1/tours').get(getAllTours).post(postTour);
+const tourRouter = express.Router();
+// setting tourRouter as middleware
+app.use('/api/v1/tours', tourRouter);
+
+tourRouter.route('/').get(getAllTours).post(postTour);
 
 // accessing one particular tour with url params
-app.route('/api/v1/tours/:id').get(getTour).patch(patchTour).delete(deleteTour);
+tourRouter.route('/:id').get(getTour).patch(patchTour).delete(deleteTour);
 
 app.route('/api/v1/users').get(getAllUsers).post(createUser);
 
