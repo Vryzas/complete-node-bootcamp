@@ -1,8 +1,10 @@
 const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
 
 const app = express();
-// middleware for POST
+
+app.use(morgan('dev'));
 app.use(express.json());
 
 // simple example middleware
