@@ -85,14 +85,8 @@ const deleteTour = (req, res) => {
 
 app.route('/api/v1/tours').get(getAllTours).post(postTour);
 
-// getting one particular tour with url params
-app.get('/api/v1/tours/:id', getTour);
-
-// example of patch!!!
-app.patch('/api/v1/tours/:id', patchTour);
-
-// delete example
-app.delete('/api/v1/tours/:id', deleteTour);
+// accessing one particular tour with url params
+app.route('/api/v1/tours/:id').get(getTour).patch(patchTour).delete(deleteTour);
 
 const port = 3000;
 app.listen(port, () => {
