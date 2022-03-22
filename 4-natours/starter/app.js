@@ -83,13 +83,10 @@ const deleteTour = (req, res) => {
   });
 };
 
-app.get('/api/v1/tours', getAllTours);
+app.route('/api/v1/tours').get(getAllTours).post(postTour);
 
 // getting one particular tour with url params
 app.get('/api/v1/tours/:id', getTour);
-
-//can use the same URL to get or post
-app.post('/api/v1/tours', postTour);
 
 // example of patch!!!
 app.patch('/api/v1/tours/:id', patchTour);
