@@ -1,3 +1,6 @@
+const fs = require('fs');
+const express = require('express');
+
 // simple example middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -6,7 +9,7 @@ app.use((req, res, next) => {
 });
 
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
+  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
 const getAllTours = (req, res) => {
@@ -84,7 +87,9 @@ const deleteTour = (req, res) => {
   });
 };
 
-const tourRouter = express.Router();
-tourRouter.route('/').get(getAllTours).post(postTour);
+const router = express.Router();
+router.route('/').get(getAllTours).post(postTour);
 
-tourRouter.route('/:id').get(getTour).patch(patchTour).delete(deleteTour);
+router.route('/:id').get(getTour).patch(patchTour).delete(deleteTour);
+
+module.exports = router;
