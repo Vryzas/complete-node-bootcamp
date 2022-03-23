@@ -1,13 +1,6 @@
 const fs = require('fs');
 const express = require('express');
 
-// simple example middleware
-app.use((req, res, next) => {
-  req.requestTime = new Date().toISOString();
-  // !!!Always invoque next()!!!
-  next();
-});
-
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );

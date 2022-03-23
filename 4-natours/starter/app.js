@@ -5,6 +5,11 @@ const userRouter = require('./routes/userRouter');
 
 const app = express();
 
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  // !!!Always invoque next()!!!
+  next();
+});
 app.use(morgan('dev'));
 app.use(express.json());
 
