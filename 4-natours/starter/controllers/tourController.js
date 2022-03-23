@@ -4,7 +4,7 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
-const getAllTours = (req, res) => {
+exports.getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
     requestedAt: req.requestTime,
@@ -15,7 +15,7 @@ const getAllTours = (req, res) => {
   });
 };
 
-const getTour = (req, res) => {
+exports.getTour = (req, res) => {
   const id = req.params.id * 1;
   if (id > tours.length) {
     return res.status(404).json({
@@ -30,7 +30,7 @@ const getTour = (req, res) => {
   });
 };
 
-const postTour = (req, res) => {
+exports.postTour = (req, res) => {
   // new id (sequencial)
   const newId = tours[tours.length - 1].id + 1;
   // new tour obj
@@ -53,7 +53,7 @@ const postTour = (req, res) => {
   );
 };
 
-const patchTour = (req, res) => {
+exports.patchTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'fail',
@@ -66,7 +66,7 @@ const patchTour = (req, res) => {
   });
 };
 
-const deleteTour = (req, res) => {
+exports.deleteTour = (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
       status: 'fail',
