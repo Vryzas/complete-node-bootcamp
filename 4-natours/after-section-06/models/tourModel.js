@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -19,8 +20,12 @@ const tourSchema = new mongoose.Schema(
     },
     slug: String,
     duration: {
-      type: Number,
-      required: [true, 'A tour must have a duration']
+      type: String,
+      required: [true, 'A tour must have a duration'],
+      validate: [
+        validator.isNumeric,
+        'The tour duration must bename must only contain numbers'
+      ]
     },
     maxGroupSize: {
       type: Number,
