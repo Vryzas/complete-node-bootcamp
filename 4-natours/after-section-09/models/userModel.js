@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'A user must have a email'],
     unique: true,
     lowercase: true,
-    validator: [validator.isEmail, 'Must insert a valid email address']
+    validate: [validator.isEmail, 'Must insert a valid email address']
   },
   photo: String,
   password: {
@@ -25,10 +25,13 @@ const userSchema = new mongoose.Schema({
   },
   passwordConfirm: {
     type: String,
-    required: [true, 'You must confirm your password']
-    // match: function(password) {
-    //     return password = passwordConfirm
-    // }
+    required: [true, 'You must confirm your password'],
+    validate: {
+      validator: function(el) {
+        return el === this.password;
+      },
+      message: 'Passwords are not the same!'
+    }
   }
 });
 
