@@ -1,3 +1,4 @@
+const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
@@ -47,4 +48,25 @@ exports.login = catchAsync(async (req, res, next) => {
     status: 'sucess',
     token
   });
+});
+
+exports.protect = catchAsync(async (req, res, next) => {
+  // 1 get token
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+  if (!token) {
+    return next(new AppError('You are not logged in! Please log in.', 401));
+  }
+  // 2 validate token
+
+  // 3 check if user exists
+
+  // 4 check if password is still valid
+
+  next();
 });
