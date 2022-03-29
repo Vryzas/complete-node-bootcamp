@@ -63,7 +63,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     return next(new AppError('You are not logged in! Please log in.', 401));
   }
   // 2 validate token
-
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  console.log(decoded);
   // 3 check if user exists
 
   // 4 check if password is still valid
