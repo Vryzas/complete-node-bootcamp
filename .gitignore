@@ -133,3 +133,4 @@ dist
 **/node_modules
 */starter/.prettierrc
 **.config.env
+4-natours/after-section-09/config.env
