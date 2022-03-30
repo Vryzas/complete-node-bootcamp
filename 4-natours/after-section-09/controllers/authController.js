@@ -12,6 +12,17 @@ const signToken = id => {
   });
 };
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id);
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user
+    }
+  });
+};
+
 exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
@@ -19,16 +30,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm
   });
-
-  const token = signToken(newUser._id);
-
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user: newUser
-    }
-  });
+  createSendToken(newUser, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -45,11 +47,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3 send token if all ok
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: 'sucess',
-    token
-  });
+  createSendToken(user, 200, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -163,11 +161,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // 3 update changedPasswordAt atribute 4 the user
 
   // 4 log the user in, send JWT
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: 'sucess',
-    token
-  });
+  createSendToken(user, 200, res);
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
@@ -182,9 +176,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.passwordConfirm = req.body.passwordConfirm;
   await user.save();
   // 4 log in user with new JWT
-  const token = signToken(user._id);
-  res.status(200).json({
-    status: 'sucess',
-    token
-  });
+  createSendToken(user, 200, res);
 });
