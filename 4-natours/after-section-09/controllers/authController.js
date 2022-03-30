@@ -75,5 +75,11 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
   // 4 check if password is still valid
+  if (freshUser.changedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError('User recently changed password! Please login again', 401)
+    );
+  }
+  // grant's acces to protected route
   next();
 });
