@@ -8,6 +8,7 @@ const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
+
 // for local db use 'process.env.DATABASE_LOCAL' instead of 'DB'
 mongoose
   .connect(DB, {
