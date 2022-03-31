@@ -45,18 +45,13 @@ exports.getTour = (req, res) => {
 };
 
 exports.postTour = (req, res) => {
-  // new id (sequencial)
   const newId = tours[tours.length - 1].id + 1;
-  // new tour obj
   const newTour = Object.assign({ id: newId }, req.body);
-  // push yhe new obj to the array
   tours.push(newTour);
-  // (over)write the new data array into the 'DB' (json file)
   fs.writeFile(
     `${__dirname}/dev-data/data/tours-simple.json`,
     JSON.stringify(tours),
     (err) => {
-      // server response
       res.status(201).json({
         status: 'Sucess',
         data: {

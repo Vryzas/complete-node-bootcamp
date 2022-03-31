@@ -7,7 +7,6 @@ const app = express();
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
-  // !!!Always invoque next()!!!
   next();
 });
 if (process.env.NODE_ENV === 'development') {
