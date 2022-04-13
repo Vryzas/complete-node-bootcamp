@@ -131,4 +131,5 @@ dist
 
 
 **/node_modules
-*/starter/.prettierrc
+**/.prettierrc
+**/config.env
